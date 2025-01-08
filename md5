@@ -1,0 +1,13 @@
+#!/bin/php
+
+<?php
+
+// print("Md5 Hash Generator\n");
+
+// print_r($argv);
+
+if ($argc != 2){
+    die("Usage: md5 \"<string>\"\n");
+}
+$md5String = $argv[1];
+print(md5($md5String));

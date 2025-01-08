@@ -1,0 +1,18 @@
+#! /bin/python
+
+import sys
+import base64
+import json
+
+if(len(sys.argv) != 3) or sys.argv[1] == '-h':
+    print("Usage: b64 {-e|-d} \"<string>\"\n");
+    print("e - encode")
+    print("d - decode")
+    print("h - Print the help menu")
+    exit(-1)
+data = sys.argv[2]
+
+if(sys.argv[1]=='-e'):
+    print(base64.b64encode(data.encode()).decode())
+elif sys.argv[1]=='-d':
+    print(base64.b64decode(data.encode()).decode())    

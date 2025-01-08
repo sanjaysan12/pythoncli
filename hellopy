@@ -1,0 +1,3 @@
+#! /bin/python
+
+print("From python\n")

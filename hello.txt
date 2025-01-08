@@ -1,0 +1,3 @@
+This is UnBuffered Class#! /usr/bin/php
+<?php
+echo "From PHP";

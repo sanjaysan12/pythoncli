@@ -1,0 +1,51 @@
+#! /bin/python
+import sys
+import os
+import json
+from lib.Argument import Argument
+
+def print_logo():
+    print(r"""
+ M   M  EEEEE  DDDD    III   AAAAA     QQQQ   U   U  EEEEE  RRRR    Y   Y
+ MM MM  E      D   D    I    A     A   Q   Q  U   U  E      R   R    Y Y
+ M M M  EEEE   D   D    I    AAAAAAA   Q   Q  U   U  EEEE   RRRR      Y
+ M   M  E      D   D    I    A     A   Q  QQ  U   U  E      R  R     Y
+ M   M  EEEEE  DDDD   III   A     A   QQQQ   UUUUU  EEEEE  R   R    Y
+    """)
+def print_help():
+    print("Usage: mediaquery --file <file> [track --type <type>]")
+    print("Options:")
+    print("  --file <file>  File to query")
+    print("Commands:")
+    print("  track          Query track information")
+    print("Options:")
+    print("  --type <type>  Type of track to query")
+a = Argument(sys.argv)
+if(a.hasOptionValue("--file")):
+    data = json.loads(os.popen("mediainfo --Output=JSON " + a.getOptionValue("--file")).read())
+    if (a.hasCommand('track') and a.hasOptionValue('--type')):
+        print("Checking for track type: " + a.getOptionValue('--type'))
+        err = 0
+        for track in data["media"]["track"]:
+            if(track['@type'] == a.getOptionValue('--type')):
+                d = json.dumps(track,indent=4)
+                if(a.hasOptions(['--list-keys','-l'])):
+                    print(track.keys())
+                    err = 0
+                    break
+                if(a.hasOptionValue("--key")):
+                    print(track[a.getOptionValue("--key")])
+                else:
+                    print(d)
+                err = 0
+                break
+            else:
+                err = 1
+        if(err == 1):
+            print("Track not found")
+    else:
+        print(json.dumps(data,indent=4))        
+else:
+    print_logo()
+    print_help()
+    

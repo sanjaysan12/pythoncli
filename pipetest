@@ -1,0 +1,23 @@
+#! /bin/python
+
+from optparse import OptionParser
+from lib.UnBuffered import UnBuffered
+import os
+import sys
+        
+stdout = UnBuffered(sys.stdout)
+stdout.write("This is UnBuffered Class")
+sys.stderr.write("#This is a error channel\n")
+# sys.stdout.write("#This is a output channel\n")
+# sys.stdout.flush()
+parser = OptionParser()
+parser.add_option("-f", "--file",dest="filename",
+                  metavar="FILE", help="Print the number of CPU Cores")
+parser.add_option("-q", "--quiet",action="store_false", dest="verbose",default=False, help="Print the CPU Percentage")
+
+(options, args) = parser.parse_args()
+if (not options.ensure_value('filename',"")):
+    filename = input("Enter the filename: ")
+    os.system('cat ' + filename)
+    sys.exit(-1)
+os.system('cat ' + options.ensure_value("filename","hellopy"))
