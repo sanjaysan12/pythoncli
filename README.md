@@ -4,18 +4,6 @@
 
 This tool needs mediainfo to be installed inorder to work properly.
 
-On Ubuntu/Debian:
-
-```
-sudo apt install mediainfo
-```
-
-On Mac:
-
-```
-brew install mediainfo
-```
-
 Download Mediaquery via Git:
 ```
 git clone https://github.com/sanjaysan12/pythoncli.git
